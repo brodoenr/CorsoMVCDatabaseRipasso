@@ -251,6 +251,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include=".gitignore" />
     <Content Include="App_Data\Fatture.mdf" />
     <Content Include="App_Data\Fatture_log.ldf">
       <DependentUpon>Fatture.mdf</DependentUpon>
