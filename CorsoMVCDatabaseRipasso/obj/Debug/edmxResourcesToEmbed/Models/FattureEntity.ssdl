@@ -1,0 +1,68 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FattureModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="FattureModelStoreContainer">
+    <EntitySet Name="VendorSet" EntityType="FattureModel.Store.VendorSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Invoice_T" EntityType="FattureModel.Store.Invoice_T" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Invoice_P" EntityType="FattureModel.Store.Invoice_P" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Vendor_Invoice_T" Association="FattureModel.Store.FK_Vendor_Invoice_T">
+      <End Role="Vendor" EntitySet="VendorSet" />
+      <End Role="Invoice_T" EntitySet="Invoice_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_T_Invoice_P" Association="FattureModel.Store.FK_Invoice_T_Invoice_P">
+      <End Role="Invoice_T" EntitySet="Invoice_T" />
+      <End Role="Invoice_P" EntitySet="Invoice_P" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="VendorSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PIVA" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invoice_T">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="VendorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invoice_P">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Material" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Quantity" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Price" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UMA" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Invoice_TId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Vendor_Invoice_T">
+    <End Role="Vendor" Type="FattureModel.Store.VendorSet" Multiplicity="1" />
+    <End Role="Invoice_T" Type="FattureModel.Store.Invoice_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice_T">
+        <PropertyRef Name="VendorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_T_Invoice_P">
+    <End Role="Invoice_T" Type="FattureModel.Store.Invoice_T" Multiplicity="1" />
+    <End Role="Invoice_P" Type="FattureModel.Store.Invoice_P" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice_T">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice_P">
+        <PropertyRef Name="Invoice_TId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

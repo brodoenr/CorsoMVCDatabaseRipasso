@@ -1,0 +1,205 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FattureModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="FattureModelStoreContainer">
+    <EntitySet Name="VendorSet" EntityType="FattureModel.Store.VendorSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Invoice_T" EntityType="FattureModel.Store.Invoice_T" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Invoice_P" EntityType="FattureModel.Store.Invoice_P" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Vendor_Invoice_T" Association="FattureModel.Store.FK_Vendor_Invoice_T">
+      <End Role="Vendor" EntitySet="VendorSet" />
+      <End Role="Invoice_T" EntitySet="Invoice_T" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Invoice_T_Invoice_P" Association="FattureModel.Store.FK_Invoice_T_Invoice_P">
+      <End Role="Invoice_T" EntitySet="Invoice_T" />
+      <End Role="Invoice_P" EntitySet="Invoice_P" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="VendorSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PIVA" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invoice_T">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Date" Type="datetime" Nullable="false" />
+    <Property Name="VendorId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Invoice_P">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Material" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Quantity" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Price" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="UMA" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Invoice_TId" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Vendor_Invoice_T">
+    <End Role="Vendor" Type="FattureModel.Store.VendorSet" Multiplicity="1" />
+    <End Role="Invoice_T" Type="FattureModel.Store.Invoice_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice_T">
+        <PropertyRef Name="VendorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Invoice_T_Invoice_P">
+    <End Role="Invoice_T" Type="FattureModel.Store.Invoice_T" Multiplicity="1" />
+    <End Role="Invoice_P" Type="FattureModel.Store.Invoice_P" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice_T">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice_P">
+        <PropertyRef Name="Invoice_TId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FattureModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="FattureEntities" annotation:LazyLoadingEnabled="true" >
+          <EntitySet Name="VendorSet" EntityType="FattureModel.Vendor" />
+          <EntitySet Name="Invoice_T" EntityType="FattureModel.Invoice_T" />
+          <AssociationSet Name="FK_Vendor_Invoice_T" Association="FattureModel.FK_Vendor_Invoice_T">
+            <End Role="Vendor" EntitySet="VendorSet" />
+            <End Role="Invoice_T" EntitySet="Invoice_T" />
+          </AssociationSet>
+          <EntitySet Name="Invoice_P" EntityType="FattureModel.Invoice_P" />
+          <AssociationSet Name="FK_Invoice_T_Invoice_P" Association="FattureModel.FK_Invoice_T_Invoice_P">
+            <End Role="Invoice_T" EntitySet="Invoice_T" />
+            <End Role="Invoice_P" EntitySet="Invoice_P" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Vendor">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" annotation:StoreGeneratedPattern="None" />
+          <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" />
+          <Property Name="PIVA" Type="String" Nullable="false" MaxLength="Max" />
+          <NavigationProperty Name="Invoice_T" Relationship="FattureModel.FK_Vendor_Invoice_T" FromRole="Vendor" ToRole="Invoice_T" />
+        </EntityType>
+        <EntityType Name="Invoice_T">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Vendor" Relationship="FattureModel.FK_Vendor_Invoice_T" FromRole="Invoice_T" ToRole="Vendor" />
+          <Property Name="VendorId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Invoice_P" Relationship="FattureModel.FK_Invoice_T_Invoice_P" FromRole="Invoice_T" ToRole="Invoice_P" />
+        </EntityType>
+        <Association Name="FK_Vendor_Invoice_T">
+          <End Type="FattureModel.Vendor" Role="Vendor" Multiplicity="1" />
+          <End Type="FattureModel.Invoice_T" Role="Invoice_T" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Vendor">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice_T">
+              <PropertyRef Name="VendorId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Invoice_P">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Material" Type="String" Nullable="false" />
+          <Property Name="Quantity" Type="String" Nullable="false" />
+          <Property Name="Price" Type="String" Nullable="false" />
+          <Property Name="UMA" Type="String" Nullable="false" />
+          <NavigationProperty Name="FK_Invoice_T" Relationship="FattureModel.FK_Invoice_T_Invoice_P" FromRole="Invoice_P" ToRole="Invoice_T" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+          <Property Name="Invoice_TId" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Invoice_T_Invoice_P">
+          <End Type="FattureModel.Invoice_T" Role="Invoice_T" Multiplicity="1" />
+          <End Type="FattureModel.Invoice_P" Role="Invoice_P" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice_T">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Invoice_P">
+              <PropertyRef Name="Invoice_TId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FattureModelStoreContainer" CdmEntityContainer="FattureEntities">
+    <EntitySetMapping Name="VendorSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FattureModel.Vendor)">
+        <MappingFragment StoreEntitySet="VendorSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PIVA" ColumnName="PIVA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoice_T">
+      <EntityTypeMapping TypeName="IsTypeOf(FattureModel.Invoice_T)">
+        <MappingFragment StoreEntitySet="Invoice_T">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoice_P">
+      <EntityTypeMapping TypeName="IsTypeOf(FattureModel.Invoice_P)">
+        <MappingFragment StoreEntitySet="Invoice_P">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Material" ColumnName="Material" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="UMA" ColumnName="UMA" />
+          <ScalarProperty Name="Invoice_TId" ColumnName="Invoice_TId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

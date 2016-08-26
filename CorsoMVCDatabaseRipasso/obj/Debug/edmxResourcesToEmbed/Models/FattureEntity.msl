@@ -1,0 +1,36 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FattureModelStoreContainer" CdmEntityContainer="FattureEntities">
+    <EntitySetMapping Name="VendorSet">
+      <EntityTypeMapping TypeName="IsTypeOf(FattureModel.Vendor)">
+        <MappingFragment StoreEntitySet="VendorSet">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="PIVA" ColumnName="PIVA" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoice_T">
+      <EntityTypeMapping TypeName="IsTypeOf(FattureModel.Invoice_T)">
+        <MappingFragment StoreEntitySet="Invoice_T">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Invoice_P">
+      <EntityTypeMapping TypeName="IsTypeOf(FattureModel.Invoice_P)">
+        <MappingFragment StoreEntitySet="Invoice_P">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Material" ColumnName="Material" />
+          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="UMA" ColumnName="UMA" />
+          <ScalarProperty Name="Invoice_TId" ColumnName="Invoice_TId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

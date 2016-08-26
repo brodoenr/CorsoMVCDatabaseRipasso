@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="FattureModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="FattureEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="VendorSet" EntityType="FattureModel.Vendor" />
+    <EntitySet Name="Invoice_T" EntityType="FattureModel.Invoice_T" />
+    <AssociationSet Name="FK_Vendor_Invoice_T" Association="FattureModel.FK_Vendor_Invoice_T">
+      <End Role="Vendor" EntitySet="VendorSet" />
+      <End Role="Invoice_T" EntitySet="Invoice_T" />
+    </AssociationSet>
+    <EntitySet Name="Invoice_P" EntityType="FattureModel.Invoice_P" />
+    <AssociationSet Name="FK_Invoice_T_Invoice_P" Association="FattureModel.FK_Invoice_T_Invoice_P">
+      <End Role="Invoice_T" EntitySet="Invoice_T" />
+      <End Role="Invoice_P" EntitySet="Invoice_P" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Vendor">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="Max" annotation:StoreGeneratedPattern="None" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="Max" />
+    <Property Name="PIVA" Type="String" Nullable="false" MaxLength="Max" />
+    <NavigationProperty Name="Invoice_T" Relationship="FattureModel.FK_Vendor_Invoice_T" FromRole="Vendor" ToRole="Invoice_T" />
+  </EntityType>
+  <EntityType Name="Invoice_T">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Nullable="false" />
+    <NavigationProperty Name="Vendor" Relationship="FattureModel.FK_Vendor_Invoice_T" FromRole="Invoice_T" ToRole="Vendor" />
+    <Property Name="VendorId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Invoice_P" Relationship="FattureModel.FK_Invoice_T_Invoice_P" FromRole="Invoice_T" ToRole="Invoice_P" />
+  </EntityType>
+  <Association Name="FK_Vendor_Invoice_T">
+    <End Type="FattureModel.Vendor" Role="Vendor" Multiplicity="1" />
+    <End Type="FattureModel.Invoice_T" Role="Invoice_T" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Vendor">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice_T">
+        <PropertyRef Name="VendorId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Invoice_P">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Material" Type="String" Nullable="false" />
+    <Property Name="Quantity" Type="String" Nullable="false" />
+    <Property Name="Price" Type="String" Nullable="false" />
+    <Property Name="UMA" Type="String" Nullable="false" />
+    <NavigationProperty Name="FK_Invoice_T" Relationship="FattureModel.FK_Invoice_T_Invoice_P" FromRole="Invoice_P" ToRole="Invoice_T" a:SetterAccess="Public" xmlns:a="http://schemas.microsoft.com/ado/2006/04/codegeneration" />
+    <Property Name="Invoice_TId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Invoice_T_Invoice_P">
+    <End Type="FattureModel.Invoice_T" Role="Invoice_T" Multiplicity="1" />
+    <End Type="FattureModel.Invoice_P" Role="Invoice_P" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Invoice_T">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Invoice_P">
+        <PropertyRef Name="Invoice_TId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
