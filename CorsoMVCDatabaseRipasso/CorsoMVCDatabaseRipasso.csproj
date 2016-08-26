@@ -221,6 +221,18 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\AspNetRoles.cs">
+      <DependentUpon>FattureEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserClaims.cs">
+      <DependentUpon>FattureEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUserLogins.cs">
+      <DependentUpon>FattureEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\AspNetUsers.cs">
+      <DependentUpon>FattureEntity.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\FattureEntity.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -262,6 +274,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\aspUser.sql" />
+    <Content Include="Models\Database1.mdf" />
     <Content Include="Models\FattureEntity.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>FattureEntity.edmx</DependentUpon>
@@ -287,6 +301,7 @@
     <Content Include="Models\FattureEntity.edmx.diagram">
       <DependentUpon>FattureEntity.edmx</DependentUpon>
     </Content>
+    <Content Include="README.md" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

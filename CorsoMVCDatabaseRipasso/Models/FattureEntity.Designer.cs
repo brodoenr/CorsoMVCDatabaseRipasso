@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'c:\users\dnc\documents\visual studio 2015\Projects\CorsoMVCDatabaseRipasso\CorsoMVCDatabaseRipasso\Models\FattureEntity.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Users\DNC\Documents\Visual Studio 2015\Projects\CorsoMVCDatabaseRipasso\CorsoMVCDatabaseRipasso\Models\FattureEntity.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

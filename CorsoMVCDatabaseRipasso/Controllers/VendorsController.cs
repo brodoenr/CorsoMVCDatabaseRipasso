@@ -15,6 +15,7 @@ namespace CorsoMVCDatabaseRipasso.Controllers
         private FattureEntities db = new FattureEntities();
 
         // GET: Vendors
+        [Authorize(Roles = "Administrator")]
         public ActionResult Index()
         {
             return View(db.VendorSet.ToList());
