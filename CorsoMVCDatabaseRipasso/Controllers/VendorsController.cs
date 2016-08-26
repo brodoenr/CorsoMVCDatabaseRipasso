@@ -22,6 +22,7 @@ namespace CorsoMVCDatabaseRipasso.Controllers
         }
 
         // GET: Vendors/Details/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +38,7 @@ namespace CorsoMVCDatabaseRipasso.Controllers
         }
 
         // GET: Vendors/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
@@ -47,6 +49,7 @@ namespace CorsoMVCDatabaseRipasso.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create([Bind(Include = "Id,Name,Address,PIVA")] Vendor vendor)
         {
             if (ModelState.IsValid)
@@ -60,6 +63,7 @@ namespace CorsoMVCDatabaseRipasso.Controllers
         }
 
         // GET: Vendors/Edit/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -79,6 +83,7 @@ namespace CorsoMVCDatabaseRipasso.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult Edit([Bind(Include = "Id,Name,Address,PIVA")] Vendor vendor)
         {
             if (ModelState.IsValid)
@@ -91,6 +96,7 @@ namespace CorsoMVCDatabaseRipasso.Controllers
         }
 
         // GET: Vendors/Delete/5
+        [Authorize(Roles = "Administrator")]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -108,6 +114,7 @@ namespace CorsoMVCDatabaseRipasso.Controllers
         // POST: Vendors/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Administrator")]
         public ActionResult DeleteConfirmed(int id)
         {
             Vendor vendor = db.VendorSet.Find(id);
